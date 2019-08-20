@@ -55,6 +55,10 @@ public class Drivetrain extends Subsystem {
 	public TPoint currentRightTrajectoryPoint;
 	
 	public Drivetrain() {
+
+		right1.setInverted(true);
+		right2.setInverted(true);
+
 		// /*
 		// rightSlave1.setInverted(true);
 		// rightSlave2.setInverted(true);
