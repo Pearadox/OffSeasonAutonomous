@@ -13,7 +13,7 @@ public class Follower{
     LtoML: Starts from left side, goes to mid-left hatch
     */
 
-    public double maxVelocity = Follow.practicebot ? 12.6 : 13;
+    public double maxVelocity = 14.25;
     public double kv = 1/maxVelocity;
 
     public double WHEEL_BASE_WIDTH = 2.3;
@@ -29,33 +29,35 @@ public class Follower{
 
     public Follower() {
         try {
-            readPath("CMRtoLSR1of2");
-            readPath("CMRtoLSR2of2");
-            readPath("LSRtoCML1of2");
-            readPath("LSRtoCML2of2");
-            readPath("LSRtoRR1");
-            readPath("LSRtoRR11of2");
-            readPath("LSRtoRR2");
-            readPath("LSRtoRR21of2");
-            readPath("LSRtoRR22of2");
-            readPath("LSRtoLR1");
-            readPath("LSRtoLR2");
-            readPath("CR1toCR2");
-            readPath("LSRtoCR1");
-            readPath("R2toCMR");
-            readPath("R1toCMR");
-            readPath("R1toRR1");
-            readPath("L1toCML");
-            readPath("CMLtoLSL1of2");
-            readPath("CMLtoLSL2of2");
-            readPath("R1toRR21of2");
-            readPath("R1toRR22of2");
-            readPath("RR2toLSR1of2");
-            readPath("RR2toLSR2of2");
-            readPath("LSRBackout");
+            // readPath("CMRtoLSR1of2");
+            // readPath("CMRtoLSR2of2");
+            // readPath("LSRtoCML1of2");
+            // readPath("LSRtoCML2of2");
+            // readPath("LSRtoRR1");
+            // readPath("LSRtoRR11of2");
+            // readPath("LSRtoRR2");
+            // readPath("LSRtoRR21of2");
+            // readPath("LSRtoRR22of2");
+            // readPath("LSRtoLR1");
+            // readPath("LSRtoLR2");
+            // readPath("CR1toCR2");
+            // readPath("LSRtoCR1");
+            // readPath("R2toCMR");
+            // readPath("R1toCMR");
+            // readPath("R1toRR1");
+            // readPath("L1toCML");
+            // readPath("CMLtoLSL1of2");
+            // readPath("CMLtoLSL2of2");
+            // readPath("R1toRR21of2");
+            // readPath("R1toRR22of2");
+            // readPath("RR2toLSR1of2");
+            // readPath("RR2toLSR2of2");
+            // readPath("LSRBackout");
 
-            readPath("distanceCalibration");
-            readPath("turnCalibration");
+            // readPath("distanceCalibration");
+            // readPath("turnCalibration");
+            readPath("rookiepractice2");
+            readPath("rookiepractice1of2");
         }
         catch(Exception e) {
             e.printStackTrace();

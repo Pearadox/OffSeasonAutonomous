@@ -4,6 +4,7 @@ import frc.robot.pathfollowing.*;
 import frc.robot.*;
 import frc.robot.commands.*;
 
+import com.revrobotics.CANEncoder;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.SparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
@@ -40,6 +41,15 @@ public class Drivetrain extends Subsystem {
 	CANSparkMax left2 = new CANSparkMax(3, MotorType.kBrushless);
 	CANSparkMax right1 = new CANSparkMax(2, MotorType.kBrushless);
 	CANSparkMax right2 = new CANSparkMax(4, MotorType.kBrushless);
+
+	CANEncoder encoderL1 = new CANEncoder(left1);
+	CANEncoder encoderL2 = new CANEncoder(left2);
+	CANEncoder encoderR1 = new CANEncoder(right1);
+	CANEncoder encoderR2 = new CANEncoder(right2);
+	
+	
+	
+	
 	
 	
 
@@ -50,14 +60,16 @@ public class Drivetrain extends Subsystem {
 	double lastFeet_l = 0;
 	double lastVelocity_l = 0;
 	double lastAcceleration_l = 0;
-	
+	double limitRotation = .1;
 	public TPoint currentLeftTrajectoryPoint;
 	public TPoint currentRightTrajectoryPoint;
 	
 	public Drivetrain() {
 
-		right1.setInverted(true);
-		right2.setInverted(true);
+		left1.setInverted(true);
+		left2.setInverted(true);
+
+		
 
 		// /*
 		// rightSlave1.setInverted(true);
@@ -73,9 +85,11 @@ public class Drivetrain extends Subsystem {
 		// leftSlave2.setNeutralMode(NeutralMode.Brake);
 		// */
 	}
+
 	
 	public void arcadeDrive(double forward, double rotate ) {
-		drive(-forward+rotate, -forward-rotate);
+		drive(-forward+rotate*.1, -forward-rotate*.1);
+
 	}
 	
 	public void drive(double leftSpeed, double rightSpeed) {
@@ -85,7 +99,7 @@ public class Drivetrain extends Subsystem {
 	
 	public void setLeft(double leftSpeed) {
 		setLeftMotor(1, leftSpeed);
-		setLeftMotor(2, leftSpeed);
+		setLeftMotor(2, leftSpeed );
 	}
 	
 	public void setRight(double rightSpeed) {
@@ -94,15 +108,28 @@ public class Drivetrain extends Subsystem {
 	}
 
 	public void setRightMotor(int motor, double speed) {
-		 if(motor == 1) right1.set(speed);
-		 else if(motor == 2) right2.set(speed);
+		if (motor == 1) {
+			right1.set(speed);
+			right1.clearFaults();
+		} else if (motor == 2) {
+			right2.set(speed);
+			right2.clearFaults();
+			SmartDashboard.putNumber("right2",speed);
+		}
 		// else if(motor == 3) rightSlave2.set(ControlMode.PercentOutput, speed);
 
 	}
 
 	public void setLeftMotor(int motor, double speed) {
-		if(motor == 1) left1.set(speed);
-		else if(motor == 2) left2.set(speed);
+		if (motor == 1) {
+			left1.set(speed);
+			left1.clearFaults();
+		} else if (motor == 2) {
+			left2.set(speed);
+			left2.clearFaults();
+			SmartDashboard.putNumber("left2",speed);
+		}
+		
 		// else if(motor == 3) leftSlave2.set(ControlMode.PercentOutput, speed);
 	}
 
@@ -110,24 +137,34 @@ public class Drivetrain extends Subsystem {
 		drive(0, 0);
 	}
 	
-	public long getLeftEncoder() {
+	public double getLeftEncoder() {
 		// return leftEncoder.get();
-		return 0;
+		return (encoderL1.getPosition() + encoderL2.getPosition())/2;
 	}
-	
-	public long getRightEncoder() {
+
+	public double getRightEncoder() {
 		// return rightEncoder.get();
-		return 0;
+		return (encoderR1.getPosition() + encoderR2.getPosition())/2;
 	}
 	
 	public double getLeftEncoderInches() {
+		double gearboxRatio = 4.67;
+		double shaftWheelRatio = 26.0/12.0;
+		double circumference = 6*Math.PI;
+		
+		return getLeftEncoder() * circumference / (gearboxRatio * shaftWheelRatio);
+
+		
 		// return getLeftEncoder()/ RobotMap.ticksPerRev * 2 * Math.PI * 3;
-		return 0;
 	}
 	
 	public double getRightEncoderInches() {
 		// return getRightEncoder()/ RobotMap.ticksPerRev * 2 * Math.PI * 3;
-		return 0;
+		double gearboxRatio = 4.67;
+		double shaftWheelRatio = 26.0/12.0;
+		double circumference = 6*Math.PI;
+		
+		return getRightEncoder() * circumference / (gearboxRatio * shaftWheelRatio);
 	}
 
 	public double getRightEncoderFeet() {
@@ -143,8 +180,10 @@ public class Drivetrain extends Subsystem {
 	}
 	
 	public void zeroEncoders() {
-		//  leftEncoder.reset();
-		//  rightEncoder.reset();
+		encoderL1.setPosition(0);
+		encoderL2.setPosition(0);
+		encoderR1.setPosition(0);
+		encoderR2.setPosition(0);
 	}
 
 	public double getYawEncoder() {

@@ -80,7 +80,18 @@ public class Follow extends Command {
 
     nonexistentPath = !Robot.follower.paths.keySet().contains(pathName);
 
+    System.out.println("pathName = " + this.pathName);
+
     ArrayList<ArrayList<TPoint>> pathPair = Robot.follower.paths.get(this.pathName);
+
+    if (pathPair != null) {
+      System.out.println("Evan's fault");
+    }
+    else {
+      System.out.println("Konasux");
+    }
+
+
     pathL = pathPair.get(0);
     pathR = pathPair.get(1);
   }

@@ -42,11 +42,20 @@ public class Robot extends TimedRobot {
     prefs = Preferences.getInstance();
 
     oi = new OI();
+
+    gyro.zero();
+
+    drivetrain.zeroEncoders();
   }
 
   @Override
   public void robotPeriodic() {
     drivetrain.updateTrajectory();
+    SmartDashboard.putNumber("leftEncoder", drivetrain.getLeftEncoder());
+    SmartDashboard.putNumber("rightEncoder", drivetrain.getRightEncoder());
+    SmartDashboard.putNumber("Heading", gyro.getYaw());
+    SmartDashboard.putNumber("LeftEncoderFeet", drivetrain.getLeftEncoderFeet());
+    SmartDashboard.putNumber("RightEncoderFeet", drivetrain.getRightEncoderFeet());
   }
   
   @Override
@@ -61,8 +70,11 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousInit() {
 
-    autonomousCommand = null;
-
+   // autonomousCommand = new rookiepractice2();\
+   autonomousCommand = new AutonomousRtoCMR();
+   
+    
+    
     if (autonomousCommand != null) {
       autonomousCommand.start();
     }
