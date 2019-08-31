@@ -18,9 +18,10 @@ public class Follow extends Command {
   public static boolean practicebot = false;
 
   double ka = 0.035; 
-  double kp = practicebot ? 0.007 : 0.01;
+  // double kp = practicebot ? 0.007 : 0.01;
+  double kp = 0.12;
   double kd = 0.0;
-  double kh = .7;
+  double kh = -0.009;
   double ka_reverse = 0.035;
   double kp_reverse = 0.1; 
   double kh_reverse = practicebot ? 0.95 : 0.8;

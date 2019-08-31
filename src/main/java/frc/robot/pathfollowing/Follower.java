@@ -56,8 +56,9 @@ public class Follower{
 
             // readPath("distanceCalibration");
             // readPath("turnCalibration");
-            readPath("rookiepractice2");
-            readPath("rookiepractice1of2");
+            readPath("RtoCL");
+            readPath("CLtoHatch");
+            readPath("CLtoHatch2");
         }
         catch(Exception e) {
             e.printStackTrace();

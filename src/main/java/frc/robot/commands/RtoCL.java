@@ -9,16 +9,18 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
-public class rookiepractice2 extends CommandGroup {
+public class RtoCL extends CommandGroup {
   /**
    * Add your docs here.
    */
-  public rookiepractice2() {
-    addSequential(new Follow("rookiepractice2", false, false) );
+  public RtoCL() {
     // Add Commands here:
     // e.g. addSequential(new Command1());
     // addSequential(new Command2());
     // these will run in order.
+    addSequential(new Follow("RtoCL",false,false));
+    addSequential(new Follow("CLtoHatch",true,false));
+    addSequential(new Follow("CLtoHatch2",false,false));
 
     // To run multiple commands at the same time,
     // use addParallel()

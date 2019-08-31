@@ -70,8 +70,8 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousInit() {
 
-   // autonomousCommand = new rookiepractice2();\
-   autonomousCommand = new AutonomousRtoCMR();
+    autonomousCommand = new RtoCL();
+  
    
     
     
